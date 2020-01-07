@@ -10,3 +10,9 @@ steps:
 optional:
 9. attacker can decrypt the asymmetic ciphertext with attacker's private key and sends the symmetric key to the victim.
 10. victim can use the symmetric key to decrypt the data
+
+
+1. 
+$ openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+$ openssl rsa -pubout -in private_key.pem -out public_key.pem
+
