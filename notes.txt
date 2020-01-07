@@ -1,0 +1,12 @@
+steps:
+1. attacker generates a key pair and puts public key in the malware
+2. malware generate a random symmetric key and encrypts the victims data with it
+3. it uses the public key in the malware to encrypt the symmetric key
+4. program now has asymmetric ciphertext (key) and symmetric ciphertext (victim's data)
+5. zeroizes symmetic key and original plaintext data to prevent recovery
+6. malware shows the asymmetric ciphertext and how to pay ransom to the user
+7. victim sends asymmetric ciphertext and money to the attacker
+8. profit!
+optional:
+9. attacker can decrypt the asymmetic ciphertext with attacker's private key and sends the symmetric key to the victim.
+10. victim can use the symmetric key to decrypt the data
