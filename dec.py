@@ -2,6 +2,8 @@ import socket
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
 
 # step 7
 s = socket.socket()
@@ -10,10 +12,10 @@ s.listen(1) # amount of connections allowed
 while True:
 	c, addr = s.accept()
 	print('Received connection from ', addr)
-	print(c.recv(2048)) # receive two bytes?
-
-	random_key_encrypted = c
-	print(random_key_decrypted)
+	#print(c.recv(2048)) # receive two bytes?
+	random_key_encrypted = c.recv(2048)
+	print('done receiving')
+	print(random_key_encrypted)
 	
 	# step 8 - lulz
 
@@ -25,8 +27,7 @@ while True:
 		private_key = load_pem_private_key(pem_data, password=None, backend=default_backend())
 		print(isinstance(private_key, rsa.RSAPrivateKey))
 
-		random_key = private_key.decrypt(
-			random_key_encrypted,
+		random_key = private_key.decrypt(random_key_encrypted,
 			padding.OAEP(
 				mgf=padding.MGF1(algorithm=hashes.SHA256()),
 				algorithm=hashes.SHA256(),
